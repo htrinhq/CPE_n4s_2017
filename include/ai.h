@@ -15,5 +15,6 @@
 
 char *input(int fd, int error);
 char *my_strcat(char *str1, char *str2);
+char **my_str_to_word_array(char *str, char separator, char other_sep);
 
 #endif

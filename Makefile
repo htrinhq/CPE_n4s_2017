@@ -8,6 +8,7 @@
 SRC	=	source/main.c			\
 		source/input.c			\
 		source/utilities.c		\
+		source/my_str_to_word_array.c	\
 
 OBJ	=	$(SRC:.c=.o)
 
