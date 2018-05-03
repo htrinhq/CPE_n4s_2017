@@ -2,3 +2,5 @@ vgcore*
 ai
 *.o
 *.a
+n4s*
+pipes.sh
