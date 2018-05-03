@@ -13,4 +13,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+char *input(int fd, int error);
+char *my_strcat(char *str1, char *str2);
+
 #endif

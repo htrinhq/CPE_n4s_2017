@@ -6,6 +6,8 @@
 ##
 
 SRC	=	source/main.c			\
+		source/input.c			\
+		source/utilities.c		\
 
 OBJ	=	$(SRC:.c=.o)
 
