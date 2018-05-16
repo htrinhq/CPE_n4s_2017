@@ -38,7 +38,7 @@ void simulation(void)
 			input(0, 1);
 		}
 		else {
-			exec_cmd("car_forward:0.5");
+			exec_cmd("car_forward:0.6");
 			input(0, 1);
 		}
 		frees(str, info);

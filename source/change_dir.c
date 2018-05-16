@@ -38,51 +38,51 @@ void get_dir(float *values, int pos)
 {
 	int prev_pos = stock_pos(0, 0);
 
-	if (pos <= 1) {
-		exec_cmd("wheels_dir:0.8");
-		input(0, 1);
-		return;
-	}
-	if (pos <= 3) {
+	/*if (pos <= 1 && check_front(values)) {
 		exec_cmd("wheels_dir:0.6");
 		input(0, 1);
 		return;
-	}
-	if (pos <= 6) {
-		exec_cmd("wheels_dir:0.4");
-		input(0, 1);
-		return;
-	}
-	/*if (pos < 10) {
-		exec_cmd("wheels_dir:0.2");
-		input(0, 1);
-		return;
 	}*/
-	if (pos > 6 && pos < 24) {
+	if (pos <= 3 && check_front(values)) {
+		exec_cmd("wheels_dir:0.3");
+		input(0, 1);
+		return;
+	}
+	if (pos <= 6 && check_front(values)) {
+		exec_cmd("wheels_dir:0.15");
+		input(0, 1);
+		return;
+	}
+	if (pos < 8) {
+		exec_cmd("wheels_dir:0.1");
+		input(0, 1);
+		return;
+	}
+	if (pos >= 8 && pos <= 22) {
 		exec_cmd("wheels_dir:0");
 		input(0, 1);
 		return;
 	}
-	if (pos >= 29) {
-		exec_cmd("wheels_dir:-0.8");
-		input(0, 1);
-		return;
-	}
-	if (pos >= 27) {
+	/*if (pos >= 29 && check_front(values)) {
 		exec_cmd("wheels_dir:-0.6");
 		input(0, 1);
 		return;
-	}
-	if (pos >= 24) {
-		exec_cmd("wheels_dir:-0.4");
-		input(0, 1);
-		return;
-	}
-	/*if (pos > 20) {
-		exec_cmd("wheels_dir:-0.2");
-		input(0, 1);
-		return;
 	}*/
+	if (pos >= 27 && check_front(values)) {
+		exec_cmd("wheels_dir:-0.3");
+		input(0, 1);
+		return;
+	}
+	if (pos >= 24 && check_front(values)) {
+		exec_cmd("wheels_dir:-0.15");
+		input(0, 1);
+		return;
+	}
+	if (pos > 22) {
+		exec_cmd("wheels_dir:-0.1");
+		input(0, 1);
+		return;
+	}
 }
 
 int my_tablen(char **tab)
@@ -101,4 +101,16 @@ int stock_pos(int bo, int pos)
 	if (bo == 1)
 		buf = pos;
 	return (buf);
+}
+
+int check_front(float *values)
+{
+	int i = 10;
+
+	while (i < 21) {
+		if (values[i] < 600)
+			return (1);
+		i = i + 1;
+	}
+	return (0);
 }
