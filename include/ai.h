@@ -22,5 +22,7 @@ float *get_values(char **info_lidar);
 void get_dir(float *values, int pos);
 int check_val(float *values, int min, int max);
 int check_front(float *values);
+void check_end(char *resp);
+void check_info(char *info);
 
 #endif
