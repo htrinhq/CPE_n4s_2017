@@ -36,50 +36,76 @@ void change_dir(char **info_lidar)
 
 void get_dir(float *values, int pos)
 {
-	int prev_pos = stock_pos(0, 0);
-
 	/*if (pos <= 1 && check_front(values)) {
 		exec_cmd("wheels_dir:0.6");
 		input(0, 1);
 		return;
 	}*/
-	if (pos <= 3 && check_front(values)) {
-		exec_cmd("wheels_dir:0.3");
+	if (/*(pos <= 3 && check_front(values)) || */(check_val(values, 31, 32) && values[0] < values[31])) {
+		exec_cmd("wheels_dir:0.25");
+		input(0, 1);
+		exec_cmd("car_forward:0.3");
 		input(0, 1);
 		return;
 	}
-	if (pos <= 6 && check_front(values)) {
-		exec_cmd("wheels_dir:0.15");
-		input(0, 1);
-		return;
-	}
-	if (pos < 8) {
-		exec_cmd("wheels_dir:0.1");
-		input(0, 1);
-		return;
-	}
-	if (pos >= 8 && pos <= 22) {
-		exec_cmd("wheels_dir:0");
-		input(0, 1);
-		return;
-	}
+	//if ((pos <= 6 && check_front(values))/* || check_val(values, 31, 32)*/) {
+	//	exec_cmd("wheels_dir:0.15");
+	//	input(0, 1);
+	//	exec_cmd("car_forward:0.4");
+	//	input(0, 1);
+	//	return;
+	//}
+	//if ((pos < 8 && check_front(values))/* || check_val(values, 28, 32)*/) {
+	//	exec_cmd("wheels_dir:0.1");
+	//	input(0, 1);
+	//	exec_cmd("car_forward:0.6");
+	//	input(0, 1);
+	//	return;
+	//}
 	/*if (pos >= 29 && check_front(values)) {
 		exec_cmd("wheels_dir:-0.6");
 		input(0, 1);
 		return;
 	}*/
-	if (pos >= 27 && check_front(values)) {
-		exec_cmd("wheels_dir:-0.3");
+	if (/*(pos >= 27 && check_front(values)) || */(check_val(values, 0, 1) && values[31] < values[0])) {
+		exec_cmd("wheels_dir:-0.25");
+		input(0, 1);
+		exec_cmd("car_forward:0.3");
 		input(0, 1);
 		return;
 	}
-	if (pos >= 24 && check_front(values)) {
-		exec_cmd("wheels_dir:-0.15");
+	if ((pos >= 27 && check_front(values))/* || (check_val(values, 0, 1) && values[31] < values[0])*/) {
+		exec_cmd("wheels_dir:-0.25");
+		input(0, 1);
+		exec_cmd("car_forward:0.3");
 		input(0, 1);
 		return;
 	}
-	if (pos > 22) {
-		exec_cmd("wheels_dir:-0.1");
+	if ((pos <= 3 && check_front(values))/* || (check_val(values, 31, 32) && values[0] < values[31])*/) {
+		exec_cmd("wheels_dir:0.25");
+		input(0, 1);
+		exec_cmd("car_forward:0.3");
+		input(0, 1);
+		return;
+	}
+	//if ((pos >= 24 && check_front(values))/* || check_val(values, 0, 1)*/) {
+	//	exec_cmd("wheels_dir:-0.15");
+	//	input(0, 1);
+	//	exec_cmd("car_forward:0.4");
+	//	input(0, 1);
+	//	return;
+	//}
+	//if ((pos > 22 && check_front(values))/* || check_val(values, 28, 32)*/) {
+	//	exec_cmd("wheels_dir:-0.1");
+	//	input(0, 1);
+	//	exec_cmd("car_forward:0.6");
+	//	input(0, 1);
+	//	return;
+	//}
+	if (pos >= 8 && pos <= 22) {
+		exec_cmd("wheels_dir:0");
+		input(0, 1);
+		exec_cmd("car_forward:0.7");
 		input(0, 1);
 		return;
 	}
@@ -94,21 +120,24 @@ int my_tablen(char **tab)
 	return (i);
 }
 
-int stock_pos(int bo, int pos)
-{
-	static int buf = 0;
-
-	if (bo == 1)
-		buf = pos;
-	return (buf);
-}
-
 int check_front(float *values)
 {
 	int i = 10;
 
 	while (i < 21) {
 		if (values[i] < 600)
+			return (1);
+		i = i + 1;
+	}
+	return (0);
+}
+
+int check_val(float *values, int min, int max)
+{
+	int i = min;
+
+	while (i < max) {
+		if (values[i] < 450)
 			return (1);
 		i = i + 1;
 	}

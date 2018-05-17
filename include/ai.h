@@ -20,5 +20,7 @@ int my_tablen(char **tab);
 void change_dir(char **info_lidar);
 float *get_values(char **info_lidar);
 void get_dir(float *values, int pos);
+int check_val(float *values, int min, int max);
+int check_front(float *values);
 
 #endif
