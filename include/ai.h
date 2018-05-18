@@ -27,6 +27,6 @@ void check_info(char *info);
 void get_speed(float middle);
 void to_left(float middle);
 void to_right(float middle);
-void exec_cmd(char *str);
+char *exec_cmd(char *str);
 
 #endif

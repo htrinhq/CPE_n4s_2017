@@ -62,8 +62,6 @@ void check_info(char *info)
 {
 	if (strncmp(info, "Track Cleared", 13) == 0) {
 		exec_cmd("car_forward:0");
-		input(0, 1);
 		exec_cmd("stop_simulation");
-		input(0, 1);
 	}
 }

@@ -19,7 +19,7 @@ int my_strlen(char *str)
 char *my_strcat(char *str1, char *str2)
 {
 	char *final = malloc(sizeof(char) *
-		(my_strlen(str1) + my_strlen(str2) + 1));
+	(my_strlen(str1) + my_strlen(str2) + 1));
 	int x = 0;
 	int y = 0;
 

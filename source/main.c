@@ -7,11 +7,11 @@
 
 #include "ai.h"
 
-void exec_cmd(char *str)
+char *exec_cmd(char *str)
 {
 	write(1, str, strlen(str));
 	write(1, "\n", 1);
-	//input(0, 1);
+	return (input(0, 1));
 }
 
 void frees(char *str, char **info)
@@ -30,14 +30,12 @@ void simulation(void)
 	char **info = NULL;
 
 	while (42) {
-		exec_cmd("get_info_lidar");
-		str = input(0, 1);
+		str = exec_cmd("get_info_lidar");
 		info = my_str_to_word_array(str, ':', ':');
 		change_dir(info);
 		frees(str, info);
 	}
 	exec_cmd("stop_simulation");
-	input(0, 1);
 }
 
 int main(int ac, char **av)
@@ -45,7 +43,6 @@ int main(int ac, char **av)
 	if (ac != 1 || av[1])
 		return (84);
 	exec_cmd("start_simulation");
-	input(0, 1);
 	simulation();
 	return (0);
 }
