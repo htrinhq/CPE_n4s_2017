@@ -24,5 +24,9 @@ int check_val(float *values, int min, int max);
 int check_front(float *values);
 void check_end(char *resp);
 void check_info(char *info);
+void get_speed(float middle);
+void to_left(float middle);
+void to_right(float middle);
+void exec_cmd(char *str);
 
 #endif

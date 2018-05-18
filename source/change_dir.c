@@ -7,7 +7,7 @@
 
 #include "ai.h"
 
-float *get_values(char **info_lidar)
+/*float *get_values(char **info_lidar)
 {
 	float *values = malloc(sizeof(float) * (my_tablen(info_lidar) + 2));
 	int i = 0;
@@ -18,111 +18,113 @@ float *get_values(char **info_lidar)
 	}
 	values[i] = -1;
 	return (values);
-}
+}*/
 
 void change_dir(char **info_lidar)
 {
-	float *values = get_values(info_lidar);
-	int i = 0;
-	int pos = 0;
+	float value = atof(info_lidar[3]) - atof(info_lidar[34]);
+	float middle = atof(info_lidar[16]);
 
-	while (values[i] != -1) {
-		if (values[i] > values[pos])
-			pos = i;
-		i = i + 1;
+	get_speed(middle);
+	if (value >= 0) {
+		to_left(middle);
+		return;
 	}
-	get_dir(values, pos);
+	to_right(middle);
 }
 
-void get_dir(float *values, int pos)
+void to_left(float middle)
 {
-	/*if (pos <= 1 && check_front(values)) {
-		exec_cmd("wheels_dir:0.6");
-		input(0, 1);
-		return;
-	}*/
-	if (/*(pos <= 3 && check_front(values)) || */(check_val(values, 31, 32) && values[0] < values[31])) {
-		exec_cmd("wheels_dir:0.3");
-		input(0, 1);
-		exec_cmd("car_forward:0.25");
-		input(0, 1);
-		return;
-	}
-	//if ((pos <= 6 && check_front(values))/* || check_val(values, 31, 32)*/) {
-	//	exec_cmd("wheels_dir:0.15");
-	//	input(0, 1);
-	//	exec_cmd("car_forward:0.4");
-	//	input(0, 1);
-	//	return;
-	//}
-	//if ((pos < 8 && check_front(values))/* || check_val(values, 28, 32)*/) {
-	//	exec_cmd("wheels_dir:0.1");
-	//	input(0, 1);
-	//	exec_cmd("car_forward:0.6");
-	//	input(0, 1);
-	//	return;
-	//}
-	/*if (pos >= 29 && check_front(values)) {
-		exec_cmd("wheels_dir:-0.6");
-		input(0, 1);
-		return;
-	}*/
-	if (/*(pos >= 27 && check_front(values)) || */(check_val(values, 0, 1) && values[31] < values[0])) {
-		exec_cmd("wheels_dir:-0.3");
-		input(0, 1);
-		exec_cmd("car_forward:0.25");
-		input(0, 1);
-		return;
-	}
-	if ((pos >= 27 && check_front(values))/* || (check_val(values, 0, 1) && values[31] < values[0])*/) {
-		exec_cmd("wheels_dir:-0.3");
-		input(0, 1);
-		exec_cmd("car_forward:0.25");
-		input(0, 1);
-		return;
-	}
-	if ((pos <= 3 && check_front(values))/* || (check_val(values, 31, 32) && values[0] < values[31])*/) {
-		exec_cmd("wheels_dir:0.3");
-		input(0, 1);
-		exec_cmd("car_forward:0.25");
-		input(0, 1);
-		return;
-	}
-	if (pos <= 7 && check_front(values)) {
-		exec_cmd("wheels_dir:0.2");
-		input(0, 1);
-		exec_cmd("car_forward:0.4");
-		input(0, 1);
-		return;
-	}
-	if (pos >= 23 && check_front(values)) {
-		exec_cmd("wheels_dir:-0.2");
-		input(0, 1);
-		exec_cmd("car_forward:0.4");
-		input(0, 1);
-		return;
-	}
-	//if ((pos >= 24 && check_front(values))/* || check_val(values, 0, 1)*/) {
-	//	exec_cmd("wheels_dir:-0.15");
-	//	input(0, 1);
-	//	exec_cmd("car_forward:0.4");
-	//	input(0, 1);
-	//	return;
-	//}
-	//if ((pos > 22 && check_front(values))/* || check_val(values, 28, 32)*/) {
-	//	exec_cmd("wheels_dir:-0.1");
-	//	input(0, 1);
-	//	exec_cmd("car_forward:0.6");
-	//	input(0, 1);
-	//	return;
-	//}
-	if (pos >= 8 && pos <= 22) {
+	if (middle >= 2100) {
 		exec_cmd("wheels_dir:0");
 		input(0, 1);
+		return;
+	}
+	if (middle >= 1000) {
+		exec_cmd("wheels_dir:0.05");
+		input(0, 1);
+		return;
+	}
+	if (middle >= 700) {
+		exec_cmd("wheels_dir:0.1");
+		input(0, 1);
+		return;
+	}
+	if (middle >= 400) {
+		exec_cmd("wheels_dir:0.2");
+		input(0, 1);
+		return;
+	}
+	if (middle >= 200) {
+		exec_cmd("wheels_dir:0.3");
+		input(0, 1);
+		return;
+	}
+	exec_cmd("wheels_dir:0.5");
+	input(0, 1);
+}
+
+void to_right(float middle)
+{
+	if (middle >= 2100) {
+		exec_cmd("wheels_dir:0");
+		input(0, 1);
+		return;
+	}
+	if (middle >= 1000) {
+		exec_cmd("wheels_dir:-0.05");
+		input(0, 1);
+		return;
+	}
+	if (middle >= 700) {
+		exec_cmd("wheels_dir:-0.1");
+		input(0, 1);
+		return;
+	}
+	if (middle >= 400) {
+		exec_cmd("wheels_dir:-0.2");
+		input(0, 1);
+		return;
+	}
+	if (middle >= 200) {
+		exec_cmd("wheels_dir:-0.3");
+		input(0, 1);
+		return;
+	}
+	exec_cmd("wheels_dir:-0.5");
+	input(0, 1);
+}
+
+void get_speed(float middle)
+{
+
+	if (middle >= 2100) {
+		exec_cmd("car_forward:1");
+		input(0, 1);
+		return;
+	}
+	if (middle >= 1500) {
 		exec_cmd("car_forward:0.7");
 		input(0, 1);
 		return;
 	}
+	if (middle >= 1000) {
+		exec_cmd("car_forward:0.4");
+		input(0, 1);
+		return;
+	}
+	if (middle >= 600) {
+		exec_cmd("car_forward:0.3");
+		input(0, 1);
+		return;
+	}
+	if (middle >= 400) {
+		exec_cmd("car_forward:0.2");
+		input(0, 1);
+		return;
+	}
+	exec_cmd("car_forward:0.1");
+	input(0, 1);
 }
 
 int my_tablen(char **tab)
