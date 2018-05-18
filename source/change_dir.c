@@ -12,6 +12,11 @@ void change_dir(char **info_lidar)
 	float value = atof(info_lidar[3]) - atof(info_lidar[34]);
 	float middle = atof(info_lidar[17]);
 
+	if (check_dead_end(info_lidar) == 1) {
+		exec_cmd("car_forward:0");
+		exec_cmd("stop_simulation");
+		return;
+	}
 	get_speed(middle);
 	if (value >= 0) {
 		to_left(middle);

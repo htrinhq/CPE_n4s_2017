@@ -65,3 +65,15 @@ void check_info(char *info)
 		exec_cmd("stop_simulation");
 	}
 }
+
+int check_dead_end(char **info_lidar)
+{
+	int i = 3;
+
+	while (i <= 34) {
+		if (atof(info_lidar[i]) > 150)
+			return (0);
+		i = i + 1;
+	}
+	return (1);
+}
