@@ -29,5 +29,7 @@ void to_left(float middle);
 void to_right(float middle);
 char *exec_cmd(char *str);
 int check_dead_end(char **info_lidar);
+int check_sim(char *str);
+void simulation(void);
 
 #endif
