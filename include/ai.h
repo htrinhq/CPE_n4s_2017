@@ -31,5 +31,6 @@ char *exec_cmd(char *str);
 int check_dead_end(char **info_lidar);
 int check_sim(char *str);
 void simulation(void);
+int check_status(char *str);
 
 #endif
