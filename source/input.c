@@ -31,6 +31,8 @@ char *input(int fd, int error)
 			usr_cmd = my_strcat(usr_cmd, command);
 	}
 	check_end(usr_cmd);
+	if (check_status(usr_cmd))
+		exit(84);
 	return (usr_cmd);
 }
 

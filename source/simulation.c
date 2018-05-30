@@ -50,3 +50,18 @@ int check_sim(char *str)
 		return (1);
 	return (0);
 }
+
+int check_status(char *str)
+{
+	unsigned int i = 0;
+
+	if (str == NULL)
+		return (1);
+	while (str[i] != '\0' && str[i] != ':')
+		i = i + 1;
+	if (i + 2 >= strlen(str))
+		return (1);
+	else if (str[i + 1] != 'O' && str[i + 2] != 'K')
+		return (1);
+	return (0);
+}
